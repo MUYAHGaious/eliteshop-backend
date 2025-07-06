@@ -1,12 +1,14 @@
 from flask import Blueprint, request, jsonify
 from src.models.user import db
 from src.models.product import Product, Order, OrderItem
+from src.routes.auth import admin_required
 from sqlalchemy import func
 from datetime import datetime, timedelta
 
 admin_bp = Blueprint('admin', __name__)
 
 @admin_bp.route('/admin/products', methods=['GET'])
+@admin_required
 def get_admin_products():
     """Get all products for admin"""
     try:
@@ -27,6 +29,7 @@ def get_admin_products():
         return jsonify({'error': str(e)}), 500
 
 @admin_bp.route('/admin/products', methods=['POST'])
+@admin_required
 def create_admin_product():
     """Create a new product"""
     try:
@@ -62,6 +65,7 @@ def create_admin_product():
         return jsonify({'error': str(e)}), 500
 
 @admin_bp.route('/admin/products/<int:product_id>', methods=['PUT'])
+@admin_required
 def update_admin_product(product_id):
     """Update a product"""
     try:
@@ -94,6 +98,7 @@ def update_admin_product(product_id):
         return jsonify({'error': str(e)}), 500
 
 @admin_bp.route('/admin/products/<int:product_id>', methods=['DELETE'])
+@admin_required
 def delete_admin_product(product_id):
     """Delete a product"""
     try:
@@ -107,6 +112,7 @@ def delete_admin_product(product_id):
         return jsonify({'error': str(e)}), 500
 
 @admin_bp.route('/admin/orders', methods=['GET'])
+@admin_required
 def get_admin_orders():
     """Get all orders for admin"""
     try:
@@ -137,6 +143,7 @@ def get_admin_orders():
         return jsonify({'error': str(e)}), 500
 
 @admin_bp.route('/admin/orders/stats', methods=['GET'])
+@admin_required
 def get_order_stats():
     """Get order statistics for admin dashboard"""
     try:
@@ -159,6 +166,7 @@ def get_order_stats():
         return jsonify({'error': str(e)}), 500
 
 @admin_bp.route('/admin/orders/<int:order_id>', methods=['PUT'])
+@admin_required
 def update_order_status(order_id):
     """Update order status"""
     try:
