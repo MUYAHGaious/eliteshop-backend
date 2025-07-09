@@ -21,7 +21,7 @@ set SECRET_KEY=dev-secret-key
 
 REM Start backend
 echo 🔥 Starting Flask backend...
-start /B python src/main.py
+start /B venv\Scripts\python.exe src\main.py
 
 REM Wait for backend to start
 timeout /t 3 /nobreak >nul
